@@ -1,17 +1,25 @@
-drop database mitra;
 
 create database mitra;
 
 use mitra;
 
-CREATE TABLE usuarios(
-idusers INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE usuario(
+iduser INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 nombre VARCHAR (100),
 apellido VARCHAR (100),
 cedula VARCHAR (50),
 email VARCHAR (50),
 Celular VARCHAR (15)
-)ENGINE = InnoDB;
+);
+
+INSERT INTO usuario (nombre, apellido, cedula, email, celular) VALUES ('Luz', 'Bonilla', 1001217721, 'lux.bp27@gmail.com', 3213306730);
+INSERT INTO usuario (nombre, apellido, cedula, email, celular) VALUES ('Luz', 'Bonilla', 1001217721, 'lux.bp27@gmail.com', 3213306730);
+INSERT INTO usuario (nombre, apellido, cedula, email, celular) VALUES ('Luz', 'Bonilla', 1001217721, 'lux.bp27@gmail.com', 3213306730);
+INSERT INTO usuario (nombre, apellido, cedula, email, celular) VALUES ('Luz', 'Bonilla', 1001217721, 'lux.bp27@gmail.com', 3213306730);
+
+SELECT * FROM usuario;
+SELECT * FROM usuario limit 1;
+SELECT * FROM usuario where celular >10;
 
 CREATE TABLE rol(
 idrol INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -20,12 +28,15 @@ apellido VARCHAR (50),
 cargo VARCHAR (50)
 );
 
+RENAME TABLE usuarios to usuario;
+
+
 CREATE TABLE relacion_Usuario_Rol(
 idusers INT,
 idrol INT,
 CONSTRAINT fk_ROL_relacion_usuario_rol
 	FOREIGN KEY (idusers)
-	REFERENCES usuarios(idusers)
+	REFERENCES usuario(iduser)
 	ON DELETE CASCADE 
 	ON UPDATE CASCADE,
 CONSTRAINT fk_USER_relacion_usuario_rol
@@ -43,10 +54,10 @@ venta_abonado VARCHAR (200),
 venta_total VARCHAR (200)
 );
     ALTER TABLE venta
-    ADD COLUMN idusers INT NULL,
+    ADD COLUMN iduser INT NULL,
     ADD CONSTRAINT fK_venta_usuario
-	FOREIGN KEY (idusers)
-	REFERENCES usuarios(idusers)
+	FOREIGN KEY (iduser)
+	REFERENCES usuarios(iduser)
 	ON DELETE CASCADE 
 	ON UPDATE CASCADE;
     
@@ -117,7 +128,7 @@ asignar_labor VARCHAR (50)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
 
-  ALTER TABLE usuarios
+  ALTER TABLE usuario
   ADD COLUMN idlabor INT NULL,
   ADD CONSTRAINT fk_usuarios_labor
   FOREIGN KEY (idlabor)
